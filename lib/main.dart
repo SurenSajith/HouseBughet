@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/onboarding_screen.dart';
 
-void Main() {
+void main() {
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -9,8 +10,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(),
+      title: "House Budget",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: "Inter"),
+      home: OnboardingScreen(),
     );
   }
 }
-s
