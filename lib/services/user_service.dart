@@ -27,14 +27,21 @@ class UserService {
       err.toString();
     }
   }
-  static Future<Map < String, String >> getUserData() async {
+
+  // method to check username is saved in the shared prefrences
+
+  static Future<bool> checkUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userName = prefs.getString('userName');
+    return userName != null;
+  }
+
+  static Future<Map<String, String>> getUserData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    String? userName =pref.getString("userName");
+    String? userName = pref.getString("userName");
     String? email = pref.getString("email");
 
-    return {
-      "username" : userName! , "email" : email!
-    };
+    return {"username": userName!, "email": email!};
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/onboarding_screen.dart';
+import 'package:flutter_application_1/services/user_service.dart';
+import 'package:flutter_application_1/widgets/wraper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,11 +15,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "House Budget",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: "Inter"),
-      home: OnboardingScreen(),
+    return FutureBuilder(
+      future: UserService.checkUserName(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else {
+          bool hasUserName = snapshot.data ?? false;
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(fontFamily: "Inter"),
+            home: Wraper(showMainScreen: hasUserName),
+          );
+        }
+      },
     );
   }
 }
